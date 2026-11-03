@@ -111,7 +111,8 @@ function update(){
  document.body.classList.toggle('has-music-dock',!dock.hidden);
  if(player?.isConnected){
   const status=player.querySelector('.audio-status');
-  if(status)status.textContent=audio.error?'暂时无法播放，请重试。':audio.ended?'播放结束':playing?'正在播放 · 关闭专辑后可继续收听':started?'已暂停':'点击播放，让声音慢慢展开。';
+  const message=audio.error?'暂时无法播放，请重试。':audio.ended?'播放结束':playing?'正在播放 · 关闭专辑后可继续收听':started?'已暂停':'点击播放，让声音慢慢展开。';
+  if(status&&status.textContent!==message)status.textContent=message;
  }
  syncSession();
 }
@@ -220,5 +221,6 @@ export function mountMusic(p){
   if(audio.readyState>=1)seek();
   else audio.addEventListener('loadedmetadata',seek,{once:true});
  }
+ document.querySelectorAll('audio').forEach(node=>{if(node!==audio)node.remove()});
  update();
 }

@@ -1,5 +1,5 @@
 /* Current gallery edition. Shared rhythm and content-specific composition. */
-:root{--measure:1104px;--reading:680px;--section-gap:64px;--hairline:color-mix(in srgb,var(--ink) 13%,transparent)}
+:root{--section-gap:64px;--hairline:color-mix(in srgb,var(--ink) 13%,transparent)}
 body{font-size:15px;line-height:1.85;text-rendering:optimizeLegibility}
 header,footer{}
 nav a{transition:color .18s}nav a:hover{color:var(--ink)}
@@ -127,7 +127,8 @@ figcaption{font:11px/1.8 var(--sans);color:var(--muted);margin-top:10px}
 .detail-deck{font-size:15px;line-height:2;color:var(--muted);max-width:44em;margin:0 0 24px}
 .detail-byline{display:flex;flex-wrap:wrap;gap:8px 20px;align-items:center;font-size:11px;color:var(--muted)}
 .detail-byline>span+span{padding-left:20px;border-left:1px solid var(--line)}
-.reading{grid-template-columns:minmax(0,var(--reading)) minmax(160px,200px);gap:72px;padding:16px 0 0;justify-content:start}
+/* Column width stays with layout.css (--reading-width). This only keeps the reading-room padding. */
+.reading{padding:16px 0 0}
 .prose{font-size:16px;line-height:2.15;font-family:var(--sans);letter-spacing:.015em;min-width:0;color:var(--ink-2);overflow-wrap:anywhere}
 .prose>p{margin:0 0 24px}.prose>p:first-of-type{font-size:17px;color:var(--ink);line-height:2.05}
 .prose h2{font:500 26px/1.6 var(--serif);color:var(--ink);margin:40px 0 20px;scroll-margin-top:32px}
@@ -169,7 +170,7 @@ figcaption{font:11px/1.8 var(--sans);color:var(--muted);margin-top:10px}
 footer{margin-top:56px;gap:24px}footer span{font-family:var(--serif)}footer small{font-size:10px}
 @keyframes page-arrive{from{opacity:.65;transform:translateY(5px)}to{opacity:1;transform:none}}
 .page-ready main{animation:page-arrive .24s ease-out}
-@media(max-width:1000px){.reading{grid-template-columns:minmax(0,1fr) 170px;gap:40px}.about-story{gap:40px}.hero{height:610px}.hero h1{font-size:64px}.hero-copy{width:75%}.research-meta{display:block}.research-meta .status{margin-top:8px}}
+@media(max-width:1000px){.about-story{gap:40px}.hero{height:610px}.hero h1{font-size:64px}.hero-copy{width:75%}.research-meta{display:block}.research-meta .status{margin-top:8px}}
 @media(max-width:900px){
  .reading{grid-template-columns:1fr;gap:24px}.reading aside{position:static;grid-row:1;padding:12px 20px;background:var(--paper-2);border:0}
  .reading aside .eyebrow,.toc-note{display:none}.reading aside strong{margin:0 0 8px}.reading aside a{display:inline-block;margin:0 20px 4px 0;font-size:11px}

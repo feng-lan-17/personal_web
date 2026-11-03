@@ -1,0 +1,169 @@
+/* Three container tiers. All shell sizing is owned here, not by the theme files. */
+:root{
+ --visual-width:1520px;--content-width:1320px;--reading-width:760px;
+ --page-gutter:clamp(24px,3.333vw,64px);--grid-gap:clamp(24px,3vw,48px);
+ --page-width:calc(100% - var(--page-gutter)*2);
+ --content-inset:max(0px,calc((100% - var(--content-width))/2));
+}
+body>header,body>footer,body[data-page=home]>header{
+ width:min(var(--visual-width),var(--page-width));max-width:none;padding-inline:0;margin-inline:auto;
+}
+body>main,body:not([data-page=home])>main{
+ width:min(var(--content-width),var(--page-width));max-width:none;padding-inline:0;margin-inline:auto;min-width:0;
+}
+body[data-page=home]>main,body[data-page=collection]>main{
+ width:min(var(--visual-width),var(--page-width));max-width:none;
+}
+.section{width:min(100%,var(--content-width));max-width:none;margin-inline:auto}
+body>footer{margin-top:clamp(44px,4vw,72px)}
+.page-head{display:grid;grid-template-columns:minmax(0,1fr) minmax(280px,.85fr);column-gap:var(--grid-gap);align-items:end;padding-block:48px 36px}
+.page-head>.eyebrow{grid-column:1/-1;margin-bottom:12px}.page-head h1{grid-column:1;grid-row:2;margin:0;font-size:clamp(38px,3.1vw,54px)}
+.page-head p{grid-column:2;grid-row:2;margin:0;max-width:40em;justify-self:start}
+/* A wide landscape with the red cabin kept inside the crop. */
+.hero{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:center;aspect-ratio:1.95;height:auto;min-height:560px;padding:clamp(40px,5vw,80px) clamp(32px,5vw,80px)}
+.hero-copy{position:relative;inset:auto;margin:0;padding:0;width:100%;max-width:none;grid-column:1;align-self:center}
+.hero h1{font-size:clamp(62px,5.2vw,88px);margin-bottom:clamp(24px,2.2vw,36px)}
+.hero-image img{object-fit:cover;object-position:50% 50%}
+.hero-note{right:clamp(24px,4vw,64px);bottom:12%;font-size:clamp(26px,2.1vw,34px)}
+.hero .hero-introduction p{font-size:clamp(14px,1vw,16px)}
+body[data-page=home] .portals{width:100%;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));margin:0 auto;padding-block:12px 24px;gap:0}
+body[data-page=home] .portal,body[data-page=home] .portal:nth-child(-n+2){padding:20px clamp(16px,2.5vw,40px)}
+body[data-page=home] .portal:first-child{padding-left:max(12px,var(--content-inset))}
+.portal-number{margin-bottom:8px}.portal strong{font-size:clamp(19px,1.5vw,23px)}
+/* Main story + compact secondary list, rather than two equal blocks. */
+body[data-page=home] .section[data-section=writing] .grid{
+ display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,.85fr);gap:28px var(--grid-gap);align-items:start;
+}
+body[data-page=home] .section[data-section=writing] .card:first-child{
+ grid-column:1;grid-row:1/span var(--secondary-count,1);min-width:0;
+}
+body[data-page=home] .section[data-section=writing] .card:first-child .cover{aspect-ratio:1.9}
+body[data-page=home] .section[data-section=writing] .card:first-child h3{font-size:clamp(26px,2vw,32px)}
+body[data-page=home] .section[data-section=writing] .card:not(:first-child){
+ display:grid;grid-column:2;grid-template-columns:minmax(110px,.58fr) minmax(0,1fr);gap:24px;padding:24px 0 0;border-top:1px solid var(--line);
+}
+body[data-page=home] .section[data-section=writing] .card:not(:first-child) .cover{aspect-ratio:1;margin:0}
+body[data-page=home] .section[data-section=writing] .card:not(:first-child) h3{font-size:22px}
+body[data-page=home] .section[data-section=writing] .grid:has(>.card:only-child){grid-template-columns:1fr}
+body[data-page=home] .section[data-section=writing] .card:only-child{display:grid;grid-template-columns:1.2fr 1fr;gap:var(--grid-gap)}
+body[data-page=home] .research-grid{display:grid;grid-template-columns:minmax(0,1.45fr) repeat(2,minmax(0,1fr));gap:var(--grid-gap)}
+body[data-page=home] .research-card:first-child{grid-column:auto;display:block}
+body[data-page=home] .research-card:first-child .research-art{aspect-ratio:1.55}
+body[data-page=home] .research-card:not(:first-child){padding-top:32px}
+body[data-page=home] .research-card:first-child h3{font-size:clamp(26px,2vw,32px)}
+.collection-preview{grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--grid-gap)}
+.collection-preview .collection-card .collection-art{aspect-ratio:1.25}
+.collection-preview .collection-card:first-child .collection-art{aspect-ratio:1.1}
+.collection-preview .collection-card:nth-child(2){padding-top:28px}
+/* About: an intentionally asymmetric narrative and smaller field-notes column. */
+.about-story{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,.8fr);gap:clamp(40px,5vw,88px);padding-top:16px}
+.about-narrative h2{font-size:clamp(30px,2.6vw,42px);line-height:1.6}
+.about-narrative>p{max-width:40em}.about-image img{height:auto;aspect-ratio:1.8;object-fit:cover;object-position:70% center}
+.about-aside{padding-top:24px}.about-story .timeline{margin-top:48px;padding-left:28px}
+/* Writing magazine: featured story to the left, a secondary reading list to the right. */
+.writing-results{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);align-items:start;gap:28px var(--grid-gap)}
+.writing-results>.card:first-child{display:block;grid-column:1;grid-row:1/span var(--secondary-count,1);padding:0;border:0}
+.writing-results>.card:first-child .cover{aspect-ratio:1.65;margin-bottom:24px}
+.writing-results>.card:first-child h3{font-size:clamp(28px,2.3vw,38px)}
+.writing-results>.card:not(:first-child){display:grid;grid-column:2;grid-template-columns:minmax(120px,.65fr) minmax(0,1fr);gap:24px;padding:24px 0;border-top:1px solid var(--line);align-items:start}
+.writing-results>.card:not(:first-child) .cover{aspect-ratio:1.12;margin:0}
+.writing-results>.card:not(:first-child) h3{font-size:23px}
+.writing-results:has(>.card:only-child){grid-template-columns:1fr}
+.writing-results>.card:only-child{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:var(--grid-gap);align-items:center}
+.writing-results>.card:only-child .cover{margin:0}
+.cover img[src$=".svg"]{object-fit:contain}
+.cover:has(img[src*="research-"]){background:var(--night)}
+.card:not(:first-child) h3 .arrow{display:none}
+/* Research archive: one large lead study, then two independent visual studies. */
+.research-index{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:32px var(--grid-gap)}
+.research-index .research-card:first-child{display:grid;grid-column:1/-1;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:var(--grid-gap);align-items:center;padding:8px 0 32px}
+.research-index .research-card:first-child .research-art{aspect-ratio:1.72}
+.research-index .research-card:first-child h3{font-size:clamp(28px,2.4vw,40px)}
+.research-index .research-card:not(:first-child){display:block;grid-column:auto;padding:0 0 28px}
+.research-index .research-card:not(:first-child) .research-art{aspect-ratio:1.85}
+.research-index .research-card:not(:first-child) .research-copy{padding-top:24px}
+.research-index .research-copy p{max-width:44em}
+.research-art img{object-fit:contain}.research-note{max-width:var(--content-width)}
+/* The shelf grows with its available space; a single filtered item stays an object. */
+.collection-display{grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));gap:40px clamp(20px,2vw,32px)}
+.collection-display .collection-card:nth-child(3n+2){padding-top:0}
+.collection-display .collection-card:nth-child(4n+2){padding-top:28px}
+.collection-display:has(>.collection-card:only-child){grid-template-columns:minmax(0,min(100%,360px))}
+.collection-display .collection-card:only-child{padding-top:0}
+.collection-display .collection-art.book-object{aspect-ratio:.95}
+.collection-display .collection-art.photo-object,.collection-display .collection-art.film-object{aspect-ratio:1.3}
+/* Reading grid: narrow text in the middle, genuine TOC space on the right. */
+body.detail-page>main{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,var(--reading-width)) minmax(180px,240px);column-gap:var(--grid-gap);align-items:start}
+.detail-toolbar{grid-column:1/-1}
+.detail-heading{grid-column:2;width:100%;max-width:none;height:auto;padding:40px 0 28px;margin:0}
+.reading{display:grid;grid-column:1/-1;grid-template-columns:subgrid;gap:0 var(--grid-gap);width:100%;justify-content:normal;min-width:0}
+.reading .prose{grid-column:2;max-width:var(--reading-width);width:100%;min-width:0}
+.reading aside{grid-column:3;grid-row:1;position:sticky;top:32px;align-self:start}
+.adjacent-notes{grid-column:2/-1;display:grid;grid-template-columns:1fr 1fr;width:100%;padding-inline:0}
+.detail-heading h1{font-size:clamp(30px,2.6vw,46px)}
+@media(min-width:1600px){
+ .hero{min-height:700px}.hero h1{font-size:90px}.hero .hero-introduction p{font-size:16px}
+ .section-head h2{font-size:34px}.page-head{padding-top:56px}
+ .collection-caption strong{font-size:23px}.research-copy h3{font-size:24px}
+}
+@media(max-width:1100px){
+ :root{--grid-gap:28px}
+ body.detail-page>main{grid-template-columns:minmax(0,1fr) 180px}
+ .detail-heading{grid-column:1}.reading .prose{grid-column:1}.reading aside{grid-column:2}.adjacent-notes{grid-column:1/-1}
+ .hero{aspect-ratio:1.7;min-height:560px;padding:40px}.hero h1{font-size:64px}
+ .hero-copy{grid-column:1/-1;width:72%}
+ body[data-page=home] .section[data-section=writing] .card:not(:first-child){display:block}
+ body[data-page=home] .section[data-section=writing] .card:not(:first-child) .cover{aspect-ratio:1.8;margin-bottom:18px}
+ .writing-results>.card:not(:first-child){display:block}.writing-results>.card:not(:first-child) .cover{aspect-ratio:1.8;margin-bottom:20px}
+ body[data-page=home] .research-grid{gap:24px;grid-template-columns:1.2fr 1fr 1fr}
+ .about-story{gap:40px;grid-template-columns:1.1fr 1fr}
+ .research-meta{display:block}.research-meta .status{margin-top:8px}
+}
+@media(max-width:900px){
+ :root{--page-gutter:32px;--grid-gap:28px}
+ .page-head{grid-template-columns:1fr;row-gap:12px}.page-head>.eyebrow{margin-bottom:0}.page-head p{grid-column:1;grid-row:3}
+ .hero{aspect-ratio:auto;min-height:620px;padding:44px 36px}.hero h1{font-size:62px}.hero-copy{width:90%}
+ .hero-image img{object-position:72% 50%}.hero-note{font-size:28px;bottom:10%}
+ body.detail-page>main{display:block}.detail-heading{width:min(100%,var(--reading-width))}
+ .reading{grid-template-columns:1fr;gap:24px}.reading .prose{grid-column:1;justify-self:center}
+ .reading aside{grid-column:1;grid-row:1;position:static}.adjacent-notes{width:100%}
+ body[data-page=home] .research-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+ body[data-page=home] .research-card:first-child{grid-column:1/-1;display:grid;grid-template-columns:1.1fr 1fr;gap:28px;align-items:center}
+ body[data-page=home] .research-card:not(:first-child){padding-top:0}
+ .collection-preview{gap:20px}.collection-preview .collection-card:nth-child(2){padding-top:16px}
+ .research-index .research-card:first-child{grid-template-columns:1fr 1fr}.research-index .research-card:first-child h3{font-size:28px}
+ .collection-display .collection-card:nth-child(4n+2){padding-top:0}
+}
+@media(max-width:580px){
+ :root{--page-gutter:18px;--grid-gap:24px}
+ body>header,body[data-page=home]>header{height:72px}
+ .hero{height:auto;min-height:700px;aspect-ratio:auto;padding:48px 24px;align-items:start}
+ .hero-copy{grid-column:1/-1;width:100%;align-self:start}
+ .hero h1{font-size:clamp(39px,10.8vw,58px)}
+ .hero-image img{object-position:80% 50%}.hero-note{font-size:25px;right:22px;bottom:9%}
+ .hero .hero-introduction p{font-size:12px}
+ body[data-page=home] .portals{grid-template-columns:repeat(2,minmax(0,1fr));padding:8px 0 16px}
+ body[data-page=home] .portal,body[data-page=home] .portal:nth-child(-n+2){padding:14px 12px}
+ body[data-page=home] .portal:first-child{padding-left:12px}
+ body[data-page=home] .section[data-section=writing] .grid{grid-template-columns:1fr;gap:28px}
+ body[data-page=home] .section[data-section=writing] .card:first-child{grid-column:1;grid-row:auto;display:block}
+ body[data-page=home] .section[data-section=writing] .card:not(:first-child){grid-column:1;display:grid;grid-template-columns:100px minmax(0,1fr);gap:16px}
+ body[data-page=home] .section[data-section=writing] .card:not(:first-child) .cover{aspect-ratio:1;margin:0}
+ body[data-page=home] .section[data-section=writing] .card:not(:first-child) h3{font-size:20px}
+ body[data-page=home] .research-grid{grid-template-columns:1fr}
+ body[data-page=home] .research-card:first-child{display:block;grid-column:auto}
+ body[data-page=home] .research-card:first-child h3{font-size:26px}
+ .collection-preview{grid-template-columns:1fr;gap:28px}.collection-preview .collection-card:nth-child(2){padding-top:0}
+ .collection-preview .collection-card .collection-art,.collection-preview .collection-card:first-child .collection-art{aspect-ratio:1.5}
+ .about-story{grid-template-columns:1fr;gap:32px}.about-image img{aspect-ratio:1.6}.about-aside{padding-top:0}
+ .writing-results{grid-template-columns:1fr}.writing-results>.card:first-child,.writing-results>.card:only-child{grid-column:1;grid-row:auto;display:block}
+ .writing-results>.card:first-child .cover{margin-bottom:20px}
+ .writing-results>.card:not(:first-child){grid-column:1;display:grid;grid-template-columns:100px minmax(0,1fr);gap:16px}
+ .writing-results>.card:not(:first-child) .cover{aspect-ratio:1;margin:0}
+ .writing-results>.card:not(:first-child) h3{font-size:20px}
+ .research-index{grid-template-columns:1fr;gap:28px}.research-index .research-card:first-child{display:block;grid-column:1}
+ .research-index .research-card:first-child .research-copy{padding-top:20px}.research-index .research-card:first-child h3{font-size:27px}
+ .research-index .research-card:not(:first-child){padding-bottom:24px}
+ .collection-display{grid-template-columns:1fr;gap:32px}.collection-display .collection-card:only-child{max-width:100%}
+ .detail-heading h1{font-size:30px}
+}

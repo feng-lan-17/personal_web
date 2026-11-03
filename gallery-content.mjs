@@ -1,0 +1,25 @@
+import {readFile,writeFile,mkdir} from 'node:fs/promises';
+const data=JSON.parse(await readFile('content/site.json','utf8'));
+data.about.paragraphs=['这里用来安放学习中的问题、写作中的思考，以及生活里值得回看的片段。','从三维表达与空间重建出发，也给阅读、影像和日常观察留一些位置。这个展馆会随着真实的记录慢慢生长。'];
+const qs=['如何用高斯表达理解场景的几何与外观？参数选择如何影响渲染与优化？','多场景点云如何进入统一坐标系？怎样记录拼接过程中的稀疏、漂移与对齐问题？','如何把三维扫描资产变成舒适、可浏览的空间？视角与碰撞逻辑需要怎样配合？'];
+data.research.forEach((p,i)=>{p.questions=p.questions||qs[i];p.shortTitle=['高斯表达与新视角','点云与场景配准','空间漫游与交互'][i]});
+for(const [i,p] of data.writing.entries()){p.tags=i?['图形学','学习笔记']:['思考','记录'];p.summary=i?'把三维表达中的疑问写下来，为后续学习留下可追溯的线索。':'从一个问题开始，为观察与尚未成形的想法留出空间。'}
+const shapes={
+ 'shelf-book':`<rect width="600" height="700" fill="#e4dfd4"/><ellipse cx="310" cy="598" rx="130" ry="20" fill="#c5bdb0"/><g transform="rotate(-7 300 350)"><rect x="172" y="104" width="258" height="472" rx="3" fill="#344a56"/><rect x="183" y="104" width="5" height="472" fill="#72818a"/><rect x="420" y="110" width="10" height="458" fill="#eee9df"/><path d="M236 416c52-95 86-25 132-121M236 437c52-95 86-25 132-121" stroke="#b7c4c9" stroke-width="1" fill="none"/><text x="221" y="193" fill="#e8e7df" font-size="13" font-family="Georgia" letter-spacing="4">FIELD NOTES</text><text x="221" y="220" fill="#afbdc3" font-size="10" font-family="Arial" letter-spacing="3">A STUDY IN PAPER</text></g>`,
+ 'shelf-music':`<rect width="600" height="600" fill="#d8dedb"/><rect x="92" y="99" width="324" height="390" fill="#ecede6"/><path d="M120 160h240M120 170h100" stroke="#acb8b6"/><circle cx="351" cy="316" r="166" fill="#26373e"/>${[151,143,135,127,119,111,103,95].map(r=>`<circle cx="351" cy="316" r="${r}" stroke="#53616a" stroke-width=".6" fill="none"/>`).join('')}<circle cx="351" cy="316" r="44" fill="#b99d88"/><circle cx="351" cy="316" r="5" fill="#e8e7df"/>`,
+ 'shelf-film':`<rect width="800" height="500" fill="#283e4b"/><path d="M0 315q175-115 340-35t460-75v295H0Z" fill="#45606d"/><path d="M0 355q230-80 430-35t370-40" stroke="#b8c5cb" stroke-width="1" fill="none"/><circle cx="580" cy="151" r="32" fill="#d4d5cc"/><path d="M0 36h800M0 464h800" stroke="#1d303a" stroke-width="48"/>${Array.from({length:18},(_,i)=>`<rect x="${i*47+4}" y="23" width="24" height="12" rx="2" fill="#70838c"/><rect x="${i*47+4}" y="465" width="24" height="12" rx="2" fill="#70838c"/>`).join('')}`,
+ 'shelf-tool':`<rect width="600" height="600" fill="#dce3e3"/><g stroke="#7c959f" fill="none" stroke-width="1.2"><rect x="94" y="120" width="412" height="338" rx="6"/><path d="M94 163h412M230 163v295M120 194h78M120 214h60M120 234h70M120 384h78M260 205h212M260 229h144"/><rect x="263" y="267" width="96" height="94"/><circle cx="416" cy="314" r="43"/><path d="M260 394h212M260 418h130"/></g><g fill="#7c959f"><circle cx="117" cy="142" r="3"/><circle cx="132" cy="142" r="3"/><circle cx="147" cy="142" r="3"/></g>`,
+ 'shelf-web':`<rect width="600" height="600" fill="#e5e1d8"/><rect x="100" y="100" width="400" height="400" fill="#f5f3ed"/><g stroke="#92a2a5" fill="none"><path d="M124 148h352M124 420h352M124 450h180"/><rect x="124" y="178" width="352" height="144"/><path d="M124 348h156v48H124ZM300 348h176v48H300Z"/></g><text x="125" y="130" fill="#687d87" font-family="Georgia" font-size="14">A quiet corner of the web</text>`
+};
+await mkdir('public/assets/lmr/collection',{recursive:true});for(const [name,body] of Object.entries(shapes))await writeFile(`public/assets/lmr/collection/${name}.svg`,`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${name==='shelf-book'?'600 700':name==='shelf-film'?'800 500':'600 600'}">${body}</svg>`);
+const seed=[
+ {id:'demo-paper',title:'纸页与留白',category:'书籍',image:'/assets/lmr/collection/shelf-book.svg',display:'book-object',note:'一本书的位置，留给反复翻阅后仍想记住的段落。这里以原创概念书封示意，并非真实出版物。',tags:['书页','阅读']},
+ {id:'demo-coast',title:'远方的一束光',category:'摄影',image:'/assets/lmr/hero-nordic-mist.webp',display:'photo-object',note:'用现有北方海岸意境图展示影像陈列的方式。图片为 AI 生成，不是个人摄影作品。',tags:['光线','风景']},
+ {id:'demo-record',title:'留一面给安静',category:'音乐',image:'/assets/lmr/collection/shelf-music.svg',display:'record-object',note:'一个未来可以收藏专辑或单曲的位置。当前黑胶仅为原创陈列图，不指向真实音乐作品。',tags:['声音','间歇']},
+ {id:'demo-film',title:'银幕上的片刻',category:'电影',image:'/assets/lmr/collection/shelf-film.svg',display:'film-object',note:'电影条目可以记录某个镜头、观影时的感受与再次观看的理由。这是原创概念画面，非真实电影海报。',tags:['影像','片刻']},
+ {id:'demo-tool',title:'让思路保持清晰',category:'工具',image:'/assets/lmr/collection/shelf-tool.svg',display:'tool-object',note:'未来在这里写下实际使用的工具、适合的场景与保留它的原因。当前界面是概念示意。',tags:['工作流','记录']},
+ {id:'demo-web',title:'互联网的一处角落',category:'网页',image:'/assets/lmr/collection/shelf-web.svg',display:'web-object',note:'为值得反复访问的网站留一张卡片。尚未关联真实站点，待补充链接与私人备注。',tags:['网页','发现']},
+ {id:'demo-quote',title:'给未完成留一个位置',category:'句子',quote:'让未完成的想法，\n也有停留的地方。',display:'quote-object-wrap',note:'用于测试摘录排版的原创演示句，未引用作品或冒充个人收藏。真实摘录请补充作者、出处与记录日期。',tags:['文字','摘录']}
+];
+if(!data.collections.items.length)data.collections.items=seed.map(p=>({...p,status:'demo'}));
+await writeFile('content/site.json',JSON.stringify(data,null,2));

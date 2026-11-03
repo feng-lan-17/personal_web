@@ -1,0 +1,22 @@
+/* lmr base design tokens, adaptable to Tailwind or CSS modules */
+:root {
+  --lmr-bg: #F7F6F2;
+  --lmr-surface: #FFFFFF;
+  --lmr-ink: #20282D;
+  --lmr-muted: #67737A;
+  --lmr-line: #E4E6E1;
+  --lmr-blue: #698293;
+  --lmr-sand: #C49B7A;
+  --lmr-mist: #EAF0F0;
+  --lmr-radius: 16px;
+  --lmr-content: 1240px;
+}
+:root[data-theme="dark"] {
+  --lmr-bg: #131A1E;
+  --lmr-surface: #202A30;
+  --lmr-ink: #F0F0EB;
+  --lmr-muted: #B4BEC2;
+  --lmr-line: #354147;
+  --lmr-blue: #A0BECC;
+  --lmr-mist: #26343A;
+}

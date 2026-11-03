@@ -1,0 +1,265 @@
+{
+  "brand": {
+    "name": "lmr",
+    "tagline": "保持好奇，持续探索",
+    "intro": "一个用于记录思考、探索技术与收藏生活片段的个人空间。",
+    "note": "以下内容仅为开发演示，不代表已经核实的个人事实。"
+  },
+  "navigation": [
+    {
+      "label": "首页",
+      "path": "/"
+    },
+    {
+      "label": "关于",
+      "path": "/about"
+    },
+    {
+      "label": "文章",
+      "path": "/writing"
+    },
+    {
+      "label": "研究",
+      "path": "/research"
+    },
+    {
+      "label": "收藏",
+      "path": "/collection"
+    }
+  ],
+  "about": {
+    "intro": "这里是 lmr 的个人空间：关注技术与表达，也愿意收藏生活中值得回味的事物。",
+    "timeline": [],
+    "interests": [
+      "三维重建",
+      "图形技术",
+      "编程",
+      "阅读与写作",
+      "摄影与旅行"
+    ],
+    "status": "待补充真实经历；不要凭空编造学校、经历或成绩",
+    "paragraphs": [
+      "这里用来安放学习中的问题、写作中的思考，以及生活里值得回看的片段。",
+      "从三维表达与空间重建出发，也给阅读、影像和日常观察留一些位置。这个展馆会随着真实的记录慢慢生长。"
+    ]
+  },
+  "writing": [
+    {
+      "slug": "birthday-cake-and-youth",
+      "title": "生日蛋糕是青春的坟墓",
+      "category": "随笔",
+      "summary": "二十岁这一天，翻看旧照片、书信和愿望，回望那些渐渐远去的事物，也想一想尚未走出的路。",
+      "status": "published",
+      "publishedAt": null,
+      "cover": "/assets/lmr/essay-candle.svg",
+      "tags": [
+        "成长",
+        "时间",
+        "青春"
+      ]
+    },
+    {
+      "slug": "notes-on-curiosity",
+      "title": "关于好奇心的一些笔记",
+      "category": "随笔",
+      "summary": "从一个问题开始，为观察与尚未成形的想法留出空间。",
+      "status": "demo",
+      "publishedAt": null,
+      "body": "这是演示文章。未来请用 lmr 本人提供的文字替换；目前不代表作者已发表作品。",
+      "cover": "/assets/lmr/writing-open-book.svg",
+      "tags": [
+        "思考",
+        "记录"
+      ]
+    },
+    {
+      "slug": "gaussian-splatting-notes",
+      "title": "Gaussian Splatting 学习札记",
+      "category": "技术",
+      "summary": "把三维表达中的疑问写下来，为后续学习留下可追溯的线索。",
+      "status": "demo",
+      "publishedAt": null,
+      "body": "这是研究学习内容入口，不应声称已经取得实验成果。",
+      "cover": "/assets/lmr/research-gaussians.svg",
+      "tags": [
+        "图形学",
+        "学习笔记"
+      ]
+    }
+  ],
+  "research": [
+    {
+      "slug": "3dgs-gsplat",
+      "title": "3D Gaussian Splatting 与 gsplat",
+      "area": "图形学 / 三维重建",
+      "status": "exploring",
+      "summary": "理解高斯表达、渲染与优化过程，关注参数选择与方法比较。",
+      "outcome": null,
+      "cover": "/assets/lmr/research-gaussians.svg",
+      "field": "Visual computing",
+      "methods": [
+        "3DGS",
+        "gsplat"
+      ],
+      "sections": [],
+      "links": [],
+      "questions": "如何用高斯表达理解场景的几何与外观？参数选择如何影响渲染与优化？",
+      "shortTitle": "高斯表达与新视角"
+    },
+    {
+      "slug": "p3d-registration",
+      "title": "P3D 多场景点云拼接与坐标统一",
+      "area": "点云 / 3D 扫描",
+      "status": "exploring",
+      "summary": "记录多场景采集、拼接、稀疏区域与坐标对齐问题。",
+      "outcome": null,
+      "cover": "/assets/lmr/research-pointcloud.svg",
+      "field": "Reconstruction",
+      "methods": [
+        "P3D",
+        "坐标配准"
+      ],
+      "sections": [],
+      "links": [],
+      "questions": "多场景点云如何进入统一坐标系？怎样记录拼接过程中的稀疏、漂移与对齐问题？",
+      "shortTitle": "点云与场景配准"
+    },
+    {
+      "slug": "unity-walkthrough",
+      "title": "Unity 场景漫游与碰撞交互",
+      "area": "实时图形 / 交互",
+      "status": "idea",
+      "summary": "探索将三维扫描资产用于舒适的第一人称漫游。",
+      "outcome": null,
+      "cover": "/assets/lmr/research-walkthrough.svg",
+      "field": "Interactive 3D",
+      "methods": [
+        "Unity",
+        "空间交互"
+      ],
+      "sections": [],
+      "links": [],
+      "questions": "如何把三维扫描资产变成舒适、可浏览的空间？视角与碰撞逻辑需要怎样配合？",
+      "shortTitle": "空间漫游与交互"
+    }
+  ],
+  "collections": {
+    "categories": [
+      "书籍",
+      "电影",
+      "音乐",
+      "摄影",
+      "工具",
+      "网页",
+      "句子"
+    ],
+    "items": [
+      {
+        "id": "farewell-is-difficult",
+        "title": "道别是一件难事",
+        "creator": "上海彩虹室内合唱团",
+        "category": "音乐",
+        "image": "/assets/lmr/collection/farewell-cover.webp",
+        "display": "music-poster",
+        "note": "上海彩虹室内合唱团 · 道别是一件难事",
+        "audio": "/assets/audio/farewell-is-difficult.flac",
+        "audioType": "audio/flac",
+        "tags": [
+          "合唱",
+          "音乐"
+        ],
+        "status": "published"
+      },
+      {
+        "id": "demo-paper",
+        "title": "纸页与留白",
+        "category": "书籍",
+        "image": "/assets/lmr/collection/shelf-book.svg",
+        "display": "book-object",
+        "note": "一本书的位置，留给反复翻阅后仍想记住的段落。这里以原创概念书封示意，并非真实出版物。",
+        "tags": [
+          "书页",
+          "阅读"
+        ],
+        "status": "demo"
+      },
+      {
+        "id": "demo-coast",
+        "title": "远方的一束光",
+        "category": "摄影",
+        "image": "/assets/lmr/hero-nordic-mist.webp",
+        "display": "photo-object",
+        "note": "用现有北方海岸意境图展示影像陈列的方式。图片为 AI 生成，不是个人摄影作品。",
+        "tags": [
+          "光线",
+          "风景"
+        ],
+        "status": "demo"
+      },
+      {
+        "id": "demo-film",
+        "title": "银幕上的片刻",
+        "category": "电影",
+        "image": "/assets/lmr/collection/shelf-film.svg",
+        "display": "film-object",
+        "note": "电影条目可以记录某个镜头、观影时的感受与再次观看的理由。这是原创概念画面，非真实电影海报。",
+        "tags": [
+          "影像",
+          "片刻"
+        ],
+        "status": "demo"
+      },
+      {
+        "id": "demo-tool",
+        "title": "让思路保持清晰",
+        "category": "工具",
+        "image": "/assets/lmr/collection/shelf-tool.svg",
+        "display": "tool-object",
+        "note": "未来在这里写下实际使用的工具、适合的场景与保留它的原因。当前界面是概念示意。",
+        "tags": [
+          "工作流",
+          "记录"
+        ],
+        "status": "demo"
+      },
+      {
+        "id": "demo-web",
+        "title": "互联网的一处角落",
+        "category": "网页",
+        "image": "/assets/lmr/collection/shelf-web.svg",
+        "display": "web-object",
+        "note": "为值得反复访问的网站留一张卡片。尚未关联真实站点，待补充链接与私人备注。",
+        "tags": [
+          "网页",
+          "发现"
+        ],
+        "status": "demo"
+      },
+      {
+        "id": "demo-quote",
+        "title": "给未完成留一个位置",
+        "category": "句子",
+        "quote": "让未完成的想法，\n也有停留的地方。",
+        "display": "quote-object-wrap",
+        "note": "用于测试摘录排版的原创演示句，未引用作品或冒充个人收藏。真实摘录请补充作者、出处与记录日期。",
+        "tags": [
+          "文字",
+          "摘录"
+        ],
+        "status": "demo"
+      }
+    ],
+    "emptyState": "收藏夹正在慢慢生长。"
+  },
+  "socialLinks": [],
+  "contactEmail": null,
+  "flags": {
+    "contentIsDemonstration": false,
+    "doNotInventPersonalFacts": true,
+    "containsDemonstrationContent": true
+  },
+  "siteMetadata": {
+    "name": "lmr",
+    "description": "一个用于记录思考、探索技术与收藏生活片段的个人空间。"
+  }
+}

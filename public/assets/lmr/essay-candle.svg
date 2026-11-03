@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 620" role="img" aria-labelledby="title desc">
+<title id="title">一支蜡烛与留白</title><desc id="desc">为生日随笔绘制的概念封面，低饱和纸白背景上，一支蜡烛立在小蛋糕上，细烟向空中散去。</desc>
+<defs><linearGradient id="paper" x2="1" y2="1"><stop stop-color="#e9e5dc"/><stop offset="1" stop-color="#d8dedc"/></linearGradient><linearGradient id="wax" x2="1"><stop stop-color="#d2b59d"/><stop offset="1" stop-color="#ede0cc"/></linearGradient></defs>
+<rect width="1000" height="620" fill="url(#paper)"/>
+<path d="M0 449H1000" stroke="#b6c0bf" stroke-width="1" opacity=".5"/>
+<ellipse cx="555" cy="481" rx="173" ry="15" fill="#bdc7c6" opacity=".55"/>
+<path d="M419 374v78c0 36 270 36 270 0v-78" fill="#d9d5cb" stroke="#8c9a9d" stroke-width="1.5"/>
+<ellipse cx="554" cy="374" rx="135" ry="34" fill="#f3f0e7" stroke="#8c9a9d" stroke-width="1.5"/>
+<path d="M419 388c32 21 238 23 270 0" fill="none" stroke="#a0aaa9" stroke-width="1"/>
+<path d="M543 374V253q11-7 22 0v121q-11 6-22 0Z" fill="url(#wax)" stroke="#a29787" stroke-width="1"/>
+<path d="M554 249v-14" stroke="#5b6e76" stroke-width="2" stroke-linecap="round"/>
+<path d="M554 228c-25-26 32-42 7-73s20-40 6-60" fill="none" stroke="#8a9da3" stroke-width="1.5" opacity=".65"/>
+<path d="M560 226c-14-19 34-36 14-63" fill="none" stroke="#a1b1b3" stroke-width="1" opacity=".5"/>
+<path d="M246 433l111-17 16 40-112 17Z" fill="#f6f1e6" stroke="#a9afa9" stroke-width="1"/>
+<path d="M264 443l78-12M268 452l58-9" stroke="#b9bcb3" stroke-width="1"/>
+<path d="M250 485h497" stroke="#819298" stroke-width="1" opacity=".45"/>
+<text x="110" y="117" fill="#6a7d85" font-family="Georgia,serif" font-size="13" letter-spacing="4">ON TIME &amp; GROWING UP</text>
+<text x="110" y="145" fill="#8c9a9d" font-family="Arial,sans-serif" font-size="9" letter-spacing="3">lmr / ESSAY</text>
+</svg>

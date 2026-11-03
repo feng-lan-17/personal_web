@@ -1,0 +1,7 @@
+﻿# generated / local
+dist/
+.workbuddy/
+handoff/*.zip
+handoff/parts/
+*.log
+server-*.log

@@ -1,0 +1,10 @@
+import {readFile,writeFile} from 'node:fs/promises';
+let s=await readFile('public/app.js','utf8');
+s=s.replace("let title='个人数字展馆',html='';", "document.body.dataset.page=path==='/'?'home':path.split('/')[1];document.body.classList.toggle('detail-page',path.split('/').length>2);\nlet title='个人数字展馆',html='';");
+s=s.replace("<section class=\"section\"><div class=\"section-head\">", "<section class=\"section\" data-section=\"${url.slice(1)}\"><div class=\"section-head\">");
+s=s.replace("'把问题留在这里'", "'研究与探索'");
+s=s.replace("'文字的留白'", "'最近的文字'");
+s=s.replace("<span class=\"symbol\">✳</span>", "<span class=\"empty-rule\" aria-hidden=\"true\"></span>");
+s=s.replace("<small>0${i+1} / </small>", "<small class=\"portal-number\">0${i+1} / </small>");
+s=s.replace("<div class=\"meta\">lmr ·", "<div class=\"meta detail-meta\">lmr ·");
+await writeFile('public/app.js',s);

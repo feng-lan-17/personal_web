@@ -319,3 +319,20 @@ footer{padding-bottom:max(40px,env(safe-area-inset-bottom));border-top-color:col
 .save-reading[aria-pressed=true]{color:var(--blue);border-color:var(--blue)}
 
 .reading-list-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.reading-list-actions button{border-radius:3px;font-size:12px;padding:8px 12px}
+
+/* Editorial rhythm for empty shelves and the collapsed mobile reading chrome.
+   Hero crop, the 760px reading measure, and the mobile nav stay where they are. */
+.empty{background:var(--paper-2);box-shadow:none}
+.empty-rule{display:block;width:36px;height:1px;margin:0 auto 18px;background:var(--accent)}
+.empty h3{font-family:var(--serif);font-weight:500;font-size:clamp(22px,2vw,26px);margin:0 0 8px}
+.empty p{max-width:36em;margin-inline:auto}
+.search-group{margin-top:18px}
+#global-results a[aria-selected=true]{background:var(--paper-2)}
+@media(max-width:900px){
+ .reading aside{display:flex;flex-direction:column;gap:8px;padding:0;background:transparent;border-radius:0}
+ .toc-toggle{margin:0}
+ .reading-tools{max-width:none;margin:0;padding:0 12px;border:1px solid var(--line);border-radius:10px;background:var(--card)}
+ .reading-tools>summary{border:0;background:transparent}
+ .reading-tools[open]{padding-bottom:12px}
+ .toc-panel{padding:4px 4px 8px}
+}

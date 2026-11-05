@@ -1,0 +1,236 @@
+/* Featured shelf for published books. Night tray, paper page, full cover. */
+
+body[data-page=home] .section[data-section=collection]{
+ width:100%;max-width:none;padding-top:clamp(36px,4vw,56px);
+}
+body[data-page=home] .section[data-section=collection] .section-head h2{
+ font-size:clamp(32px,3vw,46px);letter-spacing:.04em;line-height:1.25;
+}
+body[data-page=collection] .page-head{padding-bottom:8px}
+body[data-page=collection] .page-head h1{
+ font-size:clamp(48px,5vw,80px);letter-spacing:.06em;line-height:1.12;
+}
+body[data-page=collection] .page-head p{font-size:16px;line-height:1.9;color:var(--ink-2)}
+
+.home-shelf{
+ display:grid;grid-template-columns:minmax(0,1.7fr) minmax(230px,.68fr);
+ gap:22px 28px;align-items:start;
+}
+.featured-book{
+ display:grid;grid-template-columns:minmax(210px,430px) minmax(0,1fr);
+ gap:16px;align-items:stretch;padding:16px;border-radius:22px;color:#f4efe8;
+ background:
+  radial-gradient(80% 70% at 0% 0%,#2c4d78 0%,transparent 58%),
+  linear-gradient(155deg,#10192c 0%,#1a283c 58%,#2a211c 100%);
+ box-shadow:0 28px 64px #10192c30;
+}
+.featured-plate{
+ display:block;position:relative;margin:0;padding:0;border:0;min-height:0;width:100%;
+ border-radius:14px;overflow:hidden;background:#070d18;cursor:pointer;align-self:center;
+ box-shadow:0 18px 40px #05091080;
+}
+.featured-plate img{
+ display:block;width:100%;height:auto;aspect-ratio:3/4;max-height:640px;object-fit:cover;
+ object-position:center 24%;
+}
+.featured-era-chip,.novel-era{
+ position:absolute;left:14px;bottom:14px;z-index:1;pointer-events:none;
+ font:11px/1.4 var(--sans);letter-spacing:.14em;color:#f6f1ea;
+ background:#10192cd4;border-radius:999px;padding:6px 10px;
+}
+.featured-copy{
+ display:flex;flex-direction:column;justify-content:center;min-width:0;
+ background:#f7f2eb;color:#1e2932;border-radius:14px;padding:clamp(22px,2.4vw,40px);
+}
+.featured-book .eyebrow{color:#8d5e45}
+.featured-kicker{
+ margin:14px 0 0;font-family:var(--serif);font-size:15px;letter-spacing:.08em;color:#9a6246;
+}
+.featured-copy h3{
+ margin:8px 0 12px;padding-bottom:12px;border-bottom:1px solid #e4d9ce;
+ font-size:clamp(52px,4.6vw,84px);font-weight:500;line-height:1.05;letter-spacing:.14em;color:#172028;
+}
+.featured-author{margin:0 0 14px;font-size:15px;letter-spacing:.06em;color:#3d4a50}
+.featured-author::before{content:"著";margin-right:.7em;font-size:12px;letter-spacing:.2em;color:#8d5e45}
+.featured-note{margin:0;max-width:38em;font-size:15px;line-height:1.95;color:#3c4a52}
+.featured-book .tags{margin-top:16px}
+.featured-book .tag{color:#5b7380;border-color:#5b738030;background:#5b73800e}
+.featured-cta{
+ align-self:flex-start;margin-top:22px;border:0;border-radius:999px;min-height:48px;
+ padding:12px 22px;background:#172033;color:#f7f2eb;font-size:14px;letter-spacing:.04em;
+ box-shadow:0 10px 24px #10192c24;cursor:pointer;
+}
+.featured-cta:hover{background:#243246;color:#fff}
+
+.shelf-also{
+ display:flex;flex-direction:column;gap:12px;min-width:0;grid-row:auto;
+ background:color-mix(in srgb,var(--paper-2) 78%,transparent);
+ border-radius:18px;padding:16px 16px 8px;
+}
+.shelf-also>.eyebrow{letter-spacing:.18em}
+.shelf-also-list{display:flex;flex-direction:column;gap:20px}
+.shelf-also .collection-card .collection-art{aspect-ratio:16/11;margin-bottom:8px}
+.shelf-also .collection-caption strong{font-size:18px}
+.shelf-also .collection-note{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.home-shelf+.collection-disclaimer{font-size:12px;line-height:1.8;max-width:68em}
+
+.shelf-mast{
+ display:flex;justify-content:space-between;gap:28px;align-items:baseline;
+ margin:26px 0 4px;padding-bottom:14px;border-bottom:1px solid var(--line);
+}
+.shelf-mast .edition-marker{font-family:var(--serif);font-size:22px;letter-spacing:.08em;color:var(--ink)}
+.shelf-mast p{margin:0;max-width:48em;font-size:14px;line-height:1.9;color:var(--ink-2)}
+#featured-slot:empty{display:none}
+body[data-page=collection] #count{font-size:12px;letter-spacing:.12em;margin:6px 0 16px}
+
+.filters.shelf-bar{
+ background:#162033;border:0;border-radius:16px;padding:12px 12px 12px 16px;
+ margin:16px 0 12px;gap:8px;box-shadow:0 14px 32px #10192c1f;
+}
+.filters.shelf-bar .filter-label{font-size:11px;letter-spacing:.22em;color:#e6cbb4;margin-right:4px}
+.filters.shelf-bar button{
+ background:transparent;color:#d5dee6;border:1px solid #ffffff2e;border-radius:999px;box-shadow:none;
+}
+.filters.shelf-bar button[aria-pressed=true]{background:#f4efe8;color:#162033;border-color:#f4efe8}
+.filters.shelf-bar button:hover:not([aria-pressed=true]){color:#fff;border-color:#ffffff66;background:#ffffff14}
+.filters.shelf-bar input{
+ background:#0e1726;color:#f4efe8;border:1px solid #ffffff2a;border-radius:12px;
+}
+.filters.shelf-bar input::placeholder{color:#9aabba}
+.filters.shelf-bar input:hover,.filters.shelf-bar input:focus{border-color:#e6cbb4;box-shadow:0 0 0 3px #e6cbb422}
+
+.collection-art{position:relative}
+.demo-stamp{
+ position:absolute;z-index:2;top:10px;left:10px;font:10px/1.4 var(--sans);letter-spacing:.16em;
+ padding:4px 8px;border-radius:999px;background:#f7f5f1f2;color:#5c6b73;border:1px solid #d9d4cc;
+}
+.collection-card.is-demo .collection-art{background:var(--paper-2)}
+.collection-card.is-demo .collection-art img{filter:grayscale(.78) saturate(.12);opacity:.78}
+.collection-card.is-demo .collection-art img[src$=".svg"]{object-fit:contain;padding:16%;box-sizing:border-box;opacity:.66}
+.collection-card.is-demo .collection-caption strong{color:var(--muted);font-weight:500}
+.collection-card.is-demo .quote-object{color:var(--muted)}
+.collection-display .collection-card.is-published .collection-art{box-shadow:0 16px 36px #14203026}
+.collection-display .collection-card.is-published .collection-caption strong{font-size:26px}
+.collection-display .collection-card.is-demo .collection-caption strong{font-size:18px}
+.collection-display .collection-card.is-demo .collection-art{box-shadow:none}
+
+#collection-dialog.novel-dialog{
+ width:min(1120px,calc(100% - 40px));max-height:92svh;padding:0;border:0;background:#f7f2eb;color:#1e2932;
+}
+#collection-dialog.novel-dialog #collection-detail{
+ grid-template-columns:minmax(280px,.92fr) minmax(0,1.08fr);align-items:stretch;min-height:min(78vh,760px);
+}
+#collection-dialog.novel-dialog .novel-plate{
+ position:relative;min-height:100%;overflow:hidden;background:#10192c;display:block;
+}
+#collection-dialog.novel-dialog .novel-plate img{
+ position:absolute;inset:0;width:100%;height:100%;max-height:none;object-fit:cover;object-position:center 30%;
+}
+#collection-dialog.novel-dialog .dialog-close{background:#f7f2eb;color:#1e2932;border-color:transparent}
+#collection-dialog.novel-dialog .collection-detail-copy{
+ padding:52px 40px 32px;background:linear-gradient(180deg,#fbf7f2,#f3ebe3);color:#1e2932;
+}
+#collection-dialog.novel-dialog .eyebrow{color:#8d5e45}
+#collection-dialog.novel-dialog .novel-kicker{
+ margin:16px 0 0;font-family:var(--serif);font-size:16px;letter-spacing:.08em;color:#9a6246;
+}
+#collection-dialog.novel-dialog .collection-detail-copy h2{
+ margin:8px 0 12px;font-size:clamp(52px,5vw,76px);line-height:1.05;letter-spacing:.14em;color:#172028;
+}
+#collection-dialog.novel-dialog .novel-author{margin:0 0 18px;font-size:15px;letter-spacing:.08em;color:#3d4a50}
+#collection-dialog.novel-dialog .novel-author::before{content:"著";margin-right:.75em;font-size:12px;letter-spacing:.18em;color:#8d5e45}
+#collection-dialog.novel-dialog .novel-note{font-size:16px;line-height:2.05;color:#2f3d45;max-width:38em}
+#collection-dialog.novel-dialog .tag{color:#5b7380;border-color:#5b738033;background:#5b73800d}
+#collection-dialog.novel-dialog .novel-colophon,
+#collection-dialog.novel-dialog .novel-credit{
+ font-size:12px;line-height:1.8;color:#6a767c;margin:0;
+}
+#collection-dialog.novel-dialog .novel-colophon{margin-top:22px;padding-top:16px;border-top:1px solid #e4d9ce}
+#collection-dialog.novel-dialog .collection-browse{border-top-color:#e4d9ce}
+#collection-dialog.novel-dialog .collection-browse button{color:#1e2932;background:transparent;border-color:#d9cfc4}
+#collection-dialog.novel-dialog .collection-browse span{color:#6a767c}
+#collection-dialog.novel-dialog .collection-browse button:hover:not(:disabled){background:#efe6dc;border-color:#8d5e45}
+
+@media(prefers-reduced-motion:no-preference){
+ .featured-plate{transition:transform .45s cubic-bezier(.22,.61,.36,1)}
+ .featured-plate img{transition:transform .7s cubic-bezier(.22,.61,.36,1)}
+ .featured-plate:hover{transform:translateY(-8px)}
+ .featured-plate:hover img{transform:scale(1.035)}
+ .featured-cta{transition:transform .2s,background .2s}
+ .featured-cta:hover{transform:translateY(-2px)}
+ #collection-dialog.novel-dialog[open]{animation:dialog-arrival .42s cubic-bezier(.22,.61,.36,1)}
+}
+@media(prefers-reduced-motion:reduce){
+ .featured-plate:hover,.featured-plate:hover img,.featured-cta:hover{transform:none}
+}
+@media(hover:none){
+ .featured-plate:hover,.featured-plate:hover img,.featured-cta:hover{transform:none}
+}
+
+@media(max-width:1100px){
+ .home-shelf{grid-template-columns:1fr}
+ .shelf-also-list{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+ .featured-plate img{max-height:520px}
+}
+@media(max-width:720px){
+ .featured-book{grid-template-columns:1fr;padding:12px}
+ .featured-plate img{aspect-ratio:3/4;max-height:none;height:auto}
+ .featured-copy{padding:22px 18px 20px}
+ .featured-copy h3{font-size:48px}
+ .featured-note{font-size:14px}
+ .shelf-mast{display:block}
+ .shelf-mast p{margin-top:8px}
+ .home-shelf{gap:16px}
+ .shelf-also-list{grid-template-columns:1fr}
+ #collection-dialog.novel-dialog{width:calc(100% - 16px);margin:2vh auto;border-radius:14px}
+ #collection-dialog.novel-dialog #collection-detail{grid-template-columns:1fr;min-height:0}
+ #collection-dialog.novel-dialog .novel-plate{min-height:0;aspect-ratio:3/4;max-height:68vh}
+ #collection-dialog.novel-dialog .novel-plate img{max-height:none;height:100%;object-fit:cover}
+ #collection-dialog.novel-dialog .collection-detail-copy{padding:24px 18px 20px}
+ #collection-dialog.novel-dialog .collection-detail-copy h2{font-size:46px}
+}
+@media(max-width:580px){
+ body[data-page=collection] .page-head{padding-top:18px}
+ body[data-page=collection] .page-head h1{font-size:40px;letter-spacing:.04em}
+ body[data-page=home] .section[data-section=collection] .section-head h2{font-size:28px}
+ .filters.shelf-bar{padding:10px}
+ .filters.shelf-bar input{width:100%;margin-left:0}
+ .featured-copy h3{font-size:44px}
+}
+:root[data-theme=dark] .filters.shelf-bar{background:#243246;box-shadow:none;border:1px solid #3c5164}
+:root[data-theme=dark] .shelf-also{background:#1b2832}
+
+.feeling{
+ margin-top:22px;padding:16px 18px 14px;
+ background:color-mix(in srgb,var(--paper-2) 82%,var(--card));
+ border-left:3px solid var(--accent);border-radius:0 12px 12px 0;
+}
+.feeling .eyebrow{display:block;margin:0 0 10px;color:var(--accent)}
+.feeling p{margin:0 0 8px;font-size:14px;line-height:1.95;color:var(--ink-2)}
+.feeling p:last-child{margin-bottom:0}
+.feeling-rating{display:flex;align-items:center;gap:10px;margin:0 0 12px}
+.feeling-stars{display:inline-flex;gap:4px}
+.feeling-stars span{
+ width:13px;height:13px;background:var(--accent);
+ clip-path:polygon(50% 0,62% 34%,98% 35%,69% 56%,79% 91%,50% 72%,21% 91%,31% 56%,2% 35%,38% 34%);
+}
+.feeling-stars .is-off{background:color-mix(in srgb,var(--muted) 32%,transparent)}
+.feeling-score{font-size:11px;letter-spacing:.12em;color:var(--muted)}
+.feeling-empty{
+ background:transparent;border-left-color:color-mix(in srgb,var(--muted) 40%,transparent);
+}
+.feeling-empty p{color:var(--muted);font-size:13px}
+#collection-dialog.novel-dialog .feeling{
+ background:#efe4d8;border-left-color:#9a6246;
+}
+#collection-dialog.novel-dialog .feeling .eyebrow{color:#8d5e45}
+#collection-dialog.novel-dialog .feeling p{color:#3c4a52}
+#collection-dialog.novel-dialog .feeling-stars span{background:#9a6246}
+#collection-dialog.novel-dialog .feeling-stars .is-off{background:#c8b6a6}
+#collection-dialog.novel-dialog .feeling-score{color:#6a767c}
+#collection-dialog.novel-dialog .feeling-empty{background:transparent;border-left-color:#c8b6a6}
+#collection-dialog.novel-dialog .feeling-empty p{color:#6a767c}
+@media(max-width:580px){
+ .feeling{margin-top:18px;padding:14px 14px 12px}
+ .feeling p{font-size:14px;line-height:1.9}
+}

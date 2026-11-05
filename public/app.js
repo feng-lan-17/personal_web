@@ -1,6 +1,6 @@
 import {mountReadingList} from '/reading-list.js';
 import {mountMusic,prepareMusicView,offerResume} from '/music.js';
-import {articleCard,researchRow,collectionCard,aboutView,detailView,tags} from '/content-views.js';
+import {articleCard,researchRow,collectionCard,featuredBook,feelingBlock,aboutView,detailView,tags} from '/content-views.js';
 import {mountReadingTools,unmountReadingTools} from '/reading-tools.js';
 import {initChrome,mountPageEffects,unmountPageEffects} from '/interactions.js';
 
@@ -21,6 +21,13 @@ let previousFocus;
 const head=(en,title,desc)=>`<div class="page-head"><span class="eyebrow">${en}</span><h1>${esc(title)}</h1><p>${esc(desc)}</p></div>`;
 const empty=(title,body)=>`<div class="empty"><span class="empty-rule" aria-hidden="true"></span><h3>${esc(title)}</h3><p class="muted">${esc(body)}</p></div>`;
 const section=(en,title,url,label,body)=>`<section class="section" data-section="${url.slice(1)}"><div class="section-head"><div><span class="eyebrow">${en}</span><h2>${title}</h2></div><a href="${url}">${label} ↗</a></div>${body}</section>`;
+function shelfMarkup(){
+ const book=d.collections.items.find(p=>p.display==='novel-cover'&&p.status==='published'&&p.image);
+ if(!book)return `<div class="collection-preview">${d.collections.items.slice(0,3).map(collectionCard).join('')}</div><p class="collection-disclaimer">音乐条目已加入真实音频，其余标注为演示的陈列待逐步替换。</p>`;
+ const also=d.collections.items.filter(p=>p.id!==book.id).slice(0,2);
+ return `<div class="home-shelf">${featuredBook(book)}<aside class="shelf-also"><span class="eyebrow">同架还有</span><div class="shelf-also-list">${also.map(collectionCard).join('')}</div></aside></div><p class="collection-disclaimer">《重燃》是奥尔良烤鲟鱼堡的都市重生小说，放在这里作书架陈列，并非展馆主人所著。灰下去的格子仍是演示陈列。</p>`;
+}
+function isFeaturedBook(p){return p.display==='novel-cover'&&p.status==='published'&&p.image}
 
 async function loadData(){
  let last;
@@ -83,12 +90,12 @@ function buildPage(url){
  const path=normalize(url.pathname);
  if(path==='/')return{
   title:'个人数字展馆',
-  html:`<section class="hero"><picture class="hero-image"><source media="(max-width:580px)" srcset="/assets/lmr/hero-nordic-mist.webp"><source media="(max-width:1200px)" srcset="/assets/lmr/hero-nordic-mist-1400.webp"><img src="/assets/lmr/hero-nordic-mist.webp" alt="薄雾与柔和夕光下的北方海湾、雪山与红色木屋；根据提供的参考图生成的无字风景" width="1672" height="940" fetchpriority="high"></picture><div class="hero-copy"><span class="eyebrow">lmr / A personal digital gallery</span><h1><span>保持好奇<span class="title-punctuation">，</span></span><span>持续探索<span class="title-punctuation">。</span></span></h1><div class="hero-introduction"><p>在技术、科学与生活的交汇处，</p><p>记录思考，分享知识，收藏热爱，</p><p>寻找更大的世界。</p></div><a class="pill" href="/about">走近 lmr <span aria-hidden="true">↗</span></a></div><span class="hero-note">A little curiosity<br>for a wider world.</span></section><div class="portals">${[['writing','文章','记录思考与成长'],['research','研究','探索尚未解答的问题'],['collection','收藏','留住值得回味的美好'],['about','关于','在这里，慢慢认识']].map(([p,t,s],i)=>`<a class="portal" href="/${p}"><small class="portal-number">0${i+1} / </small><strong>${t} ↗</strong><span>${s}</span></a>`).join('')}</div>${section('Selected writing','最近的文字','/writing','全部文章',`<div class="grid" style="--secondary-count:${Math.max(1,d.writing.slice(0,3).length-1)}">${d.writing.slice(0,3).map(articleCard).join('')}</div>`)}${section('Open questions','正在探索','/research','研究手记',`<div class="research-grid">${d.research.map(researchRow).join('')}</div>`)}${section('Personal collection','留住一些美好','/collection','走进收藏室',`<div class="collection-preview">${d.collections.items.slice(0,3).map(collectionCard).join('')}</div><p class="collection-disclaimer">音乐条目已加入真实音频，其余标注为演示的陈列待逐步替换。</p>`)}`
+  html:`<section class="hero"><picture class="hero-image"><source media="(max-width:580px)" srcset="/assets/lmr/hero-nordic-mist.webp"><source media="(max-width:1200px)" srcset="/assets/lmr/hero-nordic-mist-1400.webp"><img src="/assets/lmr/hero-nordic-mist.webp" alt="薄雾与柔和夕光下的北方海湾、雪山与红色木屋；根据提供的参考图生成的无字风景" width="1672" height="940" fetchpriority="high"></picture><div class="hero-copy"><span class="eyebrow">lmr / A personal digital gallery</span><h1><span>保持好奇<span class="title-punctuation">，</span></span><span>持续探索<span class="title-punctuation">。</span></span></h1><div class="hero-introduction"><p>在技术、科学与生活的交汇处，</p><p>记录思考，分享知识，收藏热爱，</p><p>寻找更大的世界。</p></div><a class="pill" href="/about">走近 lmr <span aria-hidden="true">↗</span></a></div><span class="hero-note">A little curiosity<br>for a wider world.</span></section><div class="portals">${[['writing','文章','记录思考与成长'],['research','研究','探索尚未解答的问题'],['collection','收藏','留住值得回味的美好'],['about','关于','在这里，慢慢认识']].map(([p,t,s],i)=>`<a class="portal" href="/${p}"><small class="portal-number">0${i+1} / </small><strong>${t} ↗</strong><span>${s}</span></a>`).join('')}</div>${section('On the shelf','这一格，先留给《重燃》','/collection','走进收藏室',shelfMarkup())}${section('Selected writing','最近的文字','/writing','全部文章',`<div class="grid" style="--secondary-count:${Math.max(1,d.writing.slice(0,3).length-1)}">${d.writing.slice(0,3).map(articleCard).join('')}</div>`)}${section('Open questions','正在探索','/research','研究手记',`<div class="research-grid">${d.research.map(researchRow).join('')}</div>`)}`
  };
  if(path==='/writing')return{title:'文章',html:head('Writing / Notes & thoughts','文章','记录思考，分享发现。让零散的灵感，在文字里慢慢成形。')+`<div class="filters" id="filters"></div><div class="list-status"><p class="meta" id="count" aria-live="polite"></p></div><div class="grid" id="results"></div>`};
  if(path==='/research')return{title:'研究',html:head('Research / Work in progress','研究与探索','从三维表达，到场景重建与交互。这里记录探索方向，实际过程与成果将随研究逐步补充。')+`<div class="research-grid research-index">${d.research.map(researchRow).join('')}</div><div class="research-note"><span class="eyebrow">Field notes</span><h2>从问题出发，向理解靠近。</h2><p class="muted">专题插图仅用于表达概念。这里将逐步记录方法、实验过程、失败案例与尚未解答的问题。</p></div>`};
  if(path==='/about')return{title:'关于',html:aboutView(d,head,empty)};
- if(path==='/collection')return{title:'收藏',html:head('Collection / A cabinet of curiosities','私人收藏室','为喜欢的事物留一个位置。不求丰盛，只愿每一件都值得再次相遇。')+'<div class="collection-intro-note"><span class="edition-marker">陈列样本 / 01</span><p>收录值得停留的声音与片段；标注「演示陈列」的条目仅用于展示版式。</p></div><div class="filters" id="filters"></div><div class="list-status"><p class="meta" id="count" aria-live="polite"></p></div><div id="results" class="grid"></div>'};
+ if(path==='/collection')return{title:'收藏',html:head('Collection / The shelf, relit','私人收藏室','彗星之夏的一本小说，先放在灯下。完整封面是已经上架的收藏；演示陈列保持纸色，不与它们抢位置。')+'<div id="featured-slot"></div><div class="shelf-mast"><span class="edition-marker">藏书 / 重燃</span><p>已上架的封面按原画陈列。标着「演示陈列」的格子压低饱和度，只把版式留在原处。</p></div><div class="filters shelf-bar" id="filters"></div><div class="list-status"><p class="meta" id="count" aria-live="polite"></p></div><div id="results" class="grid"></div>'};
  if(path.startsWith('/writing/')||path.startsWith('/research/')){
   const writing=path.startsWith('/writing/');
   const items=writing?d.writing:d.research;
@@ -103,7 +110,7 @@ function mountListFilters(writing){
  const categories=['全部',...(writing?new Set(d.writing.map(p=>p.category)):d.collections.categories)];
  let active=categories.includes(params.get('category'))?params.get('category'):'全部';
  let query=params.get('q')||'';
- $('#filters').innerHTML=categories.map(c=>`<button type="button" data-category="${esc(c)}" aria-pressed="${c===active}">${esc(c)}</button>`).join('')+`<input type="search" value="${esc(query)}" placeholder="${writing?'搜索文章或标签…':'搜索收藏、创作者或标签…'}" aria-label="${writing?'搜索文章或标签':'搜索收藏'}">`;
+ $('#filters').innerHTML=(writing?'':'<span class="filter-label">门类</span>')+categories.map(c=>`<button type="button" data-category="${esc(c)}" aria-pressed="${c===active}">${esc(c)}</button>`).join('')+`<input type="search" value="${esc(query)}" placeholder="${writing?'搜索文章或标签…':'搜索收藏、创作者或标签…'}" aria-label="${writing?'搜索文章或标签':'搜索收藏'}">`;
  const status=$('#count');
  const results=$('#results');
 
@@ -125,19 +132,23 @@ function mountListFilters(writing){
  function matchesQuery(p){
   const parts=query.trim().toLowerCase().split(/\s+/).filter(Boolean);
   if(!parts.length)return true;
-  const blob=`${p.title} ${p.summary||p.note||''} ${p.creator||''} ${(p.tags||[]).join(' ')}`.toLowerCase();
+  const blob=`${p.title} ${p.summary||p.note||''} ${p.feeling||p.review||''} ${p.creator||''} ${(p.tags||[]).join(' ')}`.toLowerCase();
   return parts.every(part=>blob.includes(part));
  }
 
  function render(){
   const source=writing?d.writing:d.collections.items;
   const items=source.filter(p=>(active==='全部'||p.category===active)&&matchesQuery(p));
+  const featured=!writing?items.find(isFeaturedBook):null;
+  const list=featured?items.filter(p=>p.id!==featured.id):items;
+  const slot=$('#featured-slot');
+  if(slot)slot.innerHTML=featured?featuredBook(featured):'';
   const filtered=Boolean(query||active!=='全部');
   if(!items.length){
    results.innerHTML=filtered
     ?empty('没有找到符合条件的内容',writing?'当前关键词或分类没有匹配的文章。可以换一个词，或清除筛选。':'当前关键词或分类没有匹配的收藏。可以换一个词，或清除筛选。')
     :empty(writing?'暂时没有找到相关文字':'这一格，留给下一次心动',writing?'内容还在整理，请稍后再来看看。':'尚未添加'+(active==='全部'?'收藏':active)+'条目。');
-  }else results.innerHTML=items.map((p,i)=>writing?articleCard(p,i):collectionCard(p,i)).join('');
+  }else results.innerHTML=list.map((p,i)=>writing?articleCard(p,i):collectionCard(p,i)).join('');
   results.style.setProperty('--secondary-count',Math.max(1,items.length-1));
   results.classList.toggle('writing-results',writing);
   results.classList.toggle('collection-display',!writing);
@@ -189,7 +200,7 @@ function mountListFilters(writing){
 }
 
 function mountCollectionNavigation(p){
- const visible=[...document.querySelectorAll('[data-collection]')].map(b=>b.dataset.collection);
+ const visible=[...new Set([...document.querySelectorAll('[data-collection]')].map(b=>b.dataset.collection))];
  const ids=visible.includes(p.id)?visible:d.collections.items.map(x=>x.id);
  const index=ids.indexOf(p.id);
  const bar=document.createElement('div');
@@ -215,8 +226,12 @@ function showCollection(id){
  if(!p)return;
  prepareMusicView();
  collectionTrigger=document.activeElement;
- $('#collection-detail').innerHTML=`<div class="collection-detail-art">${p.image?`<img src="${esc(p.image)}" alt="${esc(p.title)}">`:`<blockquote>${esc(p.quote||p.title)}</blockquote>`}</div><div class="collection-detail-copy"><span class="eyebrow">${esc(p.category)} / ${p.status==='demo'?'演示陈列':'私人收藏'}</span><h2 id="collection-detail-title">${esc(p.title)}</h2>${p.creator?`<p class="meta">${esc(p.creator)}</p>`:''}<p>${esc(p.note||p.reason||p.summary)}</p>${p.audio?'<div class="music-player"></div>':''}${tags(p.tags)}${p.date?`<p class="meta">记录于 ${esc(p.date)}</p>`:''}${/^https?:\/\//.test(p.sourceUrl||p.url||'')?`<a class="source-link" href="${esc(p.sourceUrl||p.url)}" target="_blank" rel="noopener noreferrer">查看来源 ↗</a>`:''}${p.status==='demo'?'<p class="demo-footnote">此条目仅用于陈列演示，不代表 lmr 的真实收藏与偏好。</p>':''}</div>`;
+ const novel=p.display==='novel-cover';
+ const art=p.image?`<img src="${esc(p.image)}" alt="${esc(novel?p.title+'的陈列海报，画面上已写有书名与彗星短句':p.title)}" width="${novel?1199:''}" height="${novel?1312:''}">`.replace(/ width="" height=""/,''):`<blockquote>${esc(p.quote||p.title)}</blockquote>`;
+ const eyebrow=novel?'书籍 / 私人藏书':`${esc(p.category)} / ${p.status==='demo'?'演示陈列':'私人收藏'}`;
+ $('#collection-detail').innerHTML=`<div class="collection-detail-art${novel?' novel-plate':''}">${art}${novel?`<span class="novel-era">${esc(p.era||'1997 · Hale–Bopp')}</span>`:''}</div><div class="collection-detail-copy"><span class="eyebrow">${eyebrow}</span>${novel?`<p class="novel-kicker">${esc(p.kicker||'世纪大彗星划过夜空')}</p>`:''}<h2 id="collection-detail-title">${esc(p.title)}</h2>${p.creator?`<p class="${novel?'novel-author':'meta'}">${esc(p.creator)}</p>`:''}<p${novel?' class="novel-note"':''}>${esc(p.note||p.reason||p.summary)}</p>${p.audio?'<div class="music-player"></div>':''}${tags(p.tags)}${p.date?`<p class="meta">记录于 ${esc(p.date)}</p>`:''}${/^https?:\/\//.test(p.sourceUrl||p.url||'')?`<a class="source-link" href="${esc(p.sourceUrl||p.url)}" target="_blank" rel="noopener noreferrer">查看来源 ↗</a>`:''}${feelingBlock(p)}${novel?'<p class="novel-colophon">都市重生小说，作者为奥尔良烤鲟鱼堡。陈列于这格书架，并非展馆主人所著。</p><p class="novel-credit">海报上的书名与彗星短句属于画面本身。这不是小说的官方封面。</p>':''}${p.status==='demo'?'<p class="demo-footnote">此条目仅用于陈列演示，不代表 lmr 的真实收藏与偏好。</p>':''}</div>`;
  collectionDialog.classList.toggle('music-dialog',Boolean(p.audio));
+ collectionDialog.classList.toggle('novel-dialog',novel);
  if(!collectionDialog.open)collectionDialog.showModal();
  if(p.audio)mountMusic(p);
  mountCollectionNavigation(p);
@@ -231,7 +246,7 @@ function searchEntries(){
   ...d.navigation.map(n=>({title:n.label,url:n.path,type:'页面',group:'页面',text:''})),
   ...d.writing.map(p=>({title:p.title,url:'/writing/'+p.slug,type:p.status==='demo'?'文章 · 演示内容':'文章',group:'文章',text:(p.summary||'')+' '+(p.tags||[]).join(' '),tags:(p.tags||[]).join(' ')})),
   ...d.research.map(p=>({title:p.title,url:'/research/'+p.slug,type:'研究方向',group:'研究',text:p.summary||'',tags:(p.methods||[]).join(' ')})),
-  ...d.collections.items.map(p=>({title:p.title,url:'/collection?item='+encodeURIComponent(p.id),type:p.status==='demo'?'收藏 · 演示陈列':'收藏',group:'收藏',text:p.note||'',tags:(p.tags||[]).join(' ')}))
+  ...d.collections.items.map(p=>({title:p.title,url:'/collection?item='+encodeURIComponent(p.id),type:p.status==='demo'?'收藏 · 演示陈列':'收藏',group:'收藏',text:`${p.note||''} ${p.feeling||p.review||''}`,tags:(p.tags||[]).join(' ')}))
  ];
 }
 
